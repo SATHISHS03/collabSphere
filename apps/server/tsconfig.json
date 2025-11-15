@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "strict": true
+  },
+  "include": ["src"]
+}
+// Note: This file is used to compile the server-side TypeScript code.
+// It extends the base TypeScript configuration and sets specific options for the server application.
+// The `rootDir` is set to `src`, and the output directory is `dist
