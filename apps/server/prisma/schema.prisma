@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+// DATABASE_URL="postgresql://collabsphere:collabsphere@localhost:5432/collabsphere"
+
+model User {
+  id              String         @id @default(uuid())
+  username        String         @unique @db.VarChar(50)
+  email           String         @unique @db.VarChar(255)
+  passwordHash    String         @db.VarChar(255)
+  displayName     String?        @db.VarChar(100)
+  bio             String?
+  avatarUrl       String?        @db.VarChar(500)
+  coverImageUrl   String?        @db.VarChar(500)
+  reputationScore Int            @default(0)
+  isVerified      Boolean        @default(false)
+  isActive        Boolean        @default(true)
+  emailVerifiedAt DateTime?
+  lastLoginAt     DateTime?
+  settings        Json           @default("{}")
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  // Add this line for relation
+  refreshTokens   RefreshToken[]
+}
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  createdAt DateTime @default(now())
+}
+
+

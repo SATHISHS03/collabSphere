@@ -1,0 +1,4 @@
+prisma commands
+
+1. pnpm prisma generate
+2. pnpm primsa migrate dev
